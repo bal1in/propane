@@ -14,7 +14,8 @@ public class Propyleneglycoltype {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        hoem hom = new hoem();
+        hom.setVisible(true);
     }
     
 }
