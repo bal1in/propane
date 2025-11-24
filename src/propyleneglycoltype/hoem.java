@@ -175,6 +175,8 @@ public class hoem extends javax.swing.JFrame {
     private void bSpreadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSpreadActionPerformed
         try {
             FileWriter fw = new FileWriter("Untitled.gss");
+            fw.write("");
+            fw.close();
             //pass file to editor window here
             editorg e = new editorg();
             e.setVisible(true);
@@ -187,6 +189,8 @@ public class hoem extends javax.swing.JFrame {
     private void bCommaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCommaActionPerformed
         try {
             FileWriter fw = new FileWriter("Untitled.csv");
+            fw.write("");
+            fw.close();
             //pass file to editor window here
             editorg e = new editorg();
             e.setVisible(true);
@@ -199,6 +203,8 @@ public class hoem extends javax.swing.JFrame {
     private void bTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTextActionPerformed
         try {
             FileWriter fw = new FileWriter("Untitled.txt");
+            fw.write("");
+            fw.close();
             //pass file to editor window here
             editorg e = new editorg();
             e.setVisible(true);
