@@ -8,8 +8,12 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -34,6 +38,7 @@ public class editorg extends javax.swing.JFrame {
             int i = 0;
             int j = 0;
             
+            //hardcoded file.csv for now
             FileReader fr = new FileReader("file.csv");
             BufferedReader br = new BufferedReader(fr);
             while((line = br.readLine()) != null){
@@ -54,14 +59,51 @@ public class editorg extends javax.swing.JFrame {
             
             //replacing commas in a CSV with my format
             contents = contents.replace(",", "//");
+            System.out.println(contents);
             
+            //this block is converting the single line thingy into a 2D array, to be added to the JTable
+            
+            //split the line around the "rows"
+            //the aforementioned nonsense complicates this slightly, compensate later
             String[] split1 = contents.split("\\\\");
+            System.out.println(Arrays.toString(split1));
+            //now get the first line only to find the number of columns
             String[] temps = split1[0].split("//");
             j = temps.length;
             
+            //2D arrays confuse me
+            //each item is a row, and each subitem is part of its respective column
             String[][] contents2 = new String[i][j];
+            String[] split2;
+            int k = 0;
+            
+            while(k < split1.length - 2){
+                //same operation as temps, but this time grabbing every row
+                //k must be doubled here because the nonsense makes every other item in split1 blank
+                split2 = split1[k*2].split("//");
+                System.out.println(Arrays.toString(split2));
+                //inserting each row into the 2D array
+                contents2[k] = split2;
+                System.out.println(Arrays.deepToString(contents2));
+                k++;
+            }
+            
+            //throw together temporary headings for every column
+            String[] heads = new String[j];
+            for(int l = 0; l < heads.length - 2; l++){
+                heads[l] = Integer.toString(l);
+            }
             
             initComponents();
+            
+            TableModel model = new DefaultTableModel(contents2, heads);
+            JTable spread = new JTable(model);
+            spread.setPreferredSize(new java.awt.Dimension(1920, 725));
+            spread.setRowHeight(48);
+            spread.setRowSelectionAllowed(false);
+            jScrollPane1.setViewportView(spread);
+            
+            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(editorg.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -83,7 +125,6 @@ public class editorg extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -121,41 +162,6 @@ public class editorg extends javax.swing.JFrame {
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13", "Title 14", "Title 15", "Title 16", "Title 17"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jTable1.setPreferredSize(new java.awt.Dimension(1920, 725));
-        jTable1.setRowHeight(48);
-        jTable1.setRowSelectionAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
 
         jPanel4.setPreferredSize(new java.awt.Dimension(1920, 120));
 
@@ -253,6 +259,5 @@ public class editorg extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
