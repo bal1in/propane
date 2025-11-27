@@ -27,20 +27,39 @@ public class editorg extends javax.swing.JFrame {
     
     public editorg(String file) {
         try {
+            //the goal of this block is to convert any given file format into one, which will drastically simplify the programming later
+            
             String contents = "";
             String line;
             int i = 0;
+            int j = 0;
             
-            FileReader fr = new FileReader(file);
+            FileReader fr = new FileReader("file.csv");
             BufferedReader br = new BufferedReader(fr);
             while((line = br.readLine()) != null){
-                contents = contents+"||"+line;
+                //collecting every line and converting into a single line in a variable
+                if(i == 0){
+                    contents = line;
+                }
+                else{
+                    //need four backwards slashes to get around some string nonsense
+                    contents = contents+"\\\\"+line;
+                }
+                
                 i++;
+                
             }   
             br.close();
             fr.close();
             
-            String[] split = contents.split("||");
+            //replacing commas in a CSV with my format
+            contents = contents.replace(",", "//");
+            
+            String[] split1 = contents.split("\\\\");
+            String[] temps = split1[0].split("//");
+            j = temps.length;
+            
+            String[][] contents2 = new String[i][j];
             
             initComponents();
         } catch (FileNotFoundException ex) {
@@ -48,6 +67,7 @@ public class editorg extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(editorg.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     /**
