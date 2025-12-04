@@ -178,7 +178,7 @@ public class hoem extends javax.swing.JFrame {
             fw.write("");
             fw.close();
             //pass file to editor window here
-            editorg e = new editorg();
+            editorg e = new editorg("Untitled.gss");
             e.setVisible(true);
             this.setVisible(false);
         } catch (IOException ex) {

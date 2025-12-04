@@ -66,6 +66,7 @@ public class editorg extends javax.swing.JFrame {
             //split the line around the "rows"
             //the aforementioned nonsense complicates this slightly, compensate later
             String[] split1 = contents.split("\\\\");
+            String[] split3;
             System.out.println(Arrays.toString(split1));
             //now get the first line only to find the number of columns
             String[] temps = split1[0].split("//");
@@ -73,7 +74,15 @@ public class editorg extends javax.swing.JFrame {
             
             //2D arrays confuse me
             //each item is a row, and each subitem is part of its respective column
-            String[][] contents2 = new String[i][j];
+            String[][] contents2;
+            if(j < 12){
+                contents2 = new String[i][12];
+                split3 = new String[12];
+            }
+            else{
+                contents2 = new String[i][j];
+                split3 = new String[j];
+            }
             String[] split2;
             int k = 0;
             
@@ -86,6 +95,20 @@ public class editorg extends javax.swing.JFrame {
                 contents2[k] = split2;
                 System.out.println(Arrays.deepToString(contents2));
                 k++;
+            }
+            
+                int n = 0;
+                for(n = 0; n < split2.length; n++){
+                    split3[n] = split2[n];
+                }
+            
+            //fill any blank spaces with zeroes (for formatting)
+            for(int l=0; l<contents2.length; l++){
+                for(int m=0; m<contents2[l].length; m++){
+                    if(contents2[l][m] == null){
+                        contents2[l][m] = "0";
+                    }
+                }
             }
             
             //throw together temporary headings for every column
