@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -25,13 +26,15 @@ public class editorg extends javax.swing.JFrame {
      * Creates new form editorg
      */
     public editorg() {
-        initComponents();
-        
+        JOptionPane.showMessageDialog(rootPane, "No file to load specified", "guh...", HEIGHT);
+        hoem h = new hoem();
+        h.setVisible(true);
+        this.setVisible(false);
     }
     
     public editorg(String file) {
         try {
-            //the goal of this block is to convert any given file format into one, which will drastically simplify the programming later
+            //the goal of this block is to convert any given file format into one standard, which will drastically simplify the programming later
             
             String contents = "";
             String line;
@@ -61,28 +64,33 @@ public class editorg extends javax.swing.JFrame {
             contents = contents.replace(",", "//");
             System.out.println(contents);
             
+            
             //this block is converting the single line thingy into a 2D array, to be added to the JTable
             
             //split the line around the "rows"
             //the aforementioned nonsense complicates this slightly, compensate later
             String[] split1 = contents.split("\\\\");
-            String[] split3;
-            System.out.println(Arrays.toString(split1));
+            //System.out.println(Arrays.toString(split1));
             //now get the first line only to find the number of columns
             String[] temps = split1[0].split("//");
             j = temps.length;
             
+            //this array never has anything actually inserted in it but it is needed to make the table behave
+            //its length = number of columns in the table
+            //with no items inside the titles default to alphabetical which is extremely convenient for me
+            String[] heads;
+            
             //2D arrays confuse me
             //each item is a row, and each subitem is part of its respective column
             String[][] contents2;
-            if(j < 12){
-                contents2 = new String[i][12];
-                split3 = new String[12];
-            }
-            else{
-                contents2 = new String[i][j];
-                split3 = new String[j];
-            }
+            //if(j < 23){
+                contents2 = new String[52][52];
+                heads = new String[52];
+            //}
+            //else{
+            //    contents2 = new String[i][j];
+            //    heads = new String[j];
+            //}
             String[] split2;
             int k = 0;
             
@@ -90,39 +98,30 @@ public class editorg extends javax.swing.JFrame {
                 //same operation as temps, but this time grabbing every row
                 //k must be doubled here because the nonsense makes every other item in split1 blank
                 split2 = split1[k*2].split("//");
-                System.out.println(Arrays.toString(split2));
-                //inserting each row into the 2D array
-                contents2[k] = split2;
-                System.out.println(Arrays.deepToString(contents2));
+                //System.out.println(Arrays.toString(split2));
+                //inserting each item into the 2D array
+                for(int n = 0; n < split2.length; n++){
+                    contents2[k][n+1] = split2[n];
+                }
+                contents2[k][0] = String.valueOf(k+1);
+                //System.out.println(Arrays.deepToString(contents2));
                 k++;
             }
             
-                int n = 0;
-                for(n = 0; n < split2.length; n++){
-                    split3[n] = split2[n];
-                }
-            
-            //fill any blank spaces with zeroes (for formatting)
-            for(int l=0; l<contents2.length; l++){
-                for(int m=0; m<contents2[l].length; m++){
-                    if(contents2[l][m] == null){
-                        contents2[l][m] = "0";
-                    }
-                }
-            }
-            
-            //throw together temporary headings for every column
-            String[] heads = new String[j];
-            for(int l = 0; l < heads.length - 2; l++){
-                heads[l] = Integer.toString(l);
-            }
             
             initComponents();
             
             TableModel model = new DefaultTableModel(contents2, heads);
             JTable spread = new JTable(model);
-            spread.setPreferredSize(new java.awt.Dimension(1920, 725));
-            spread.setRowHeight(48);
+            spread.setFont(new java.awt.Font("Lucida Console", 0, 12));
+            spread.setPreferredSize(new java.awt.Dimension(80*56, 725));
+            spread.setMaximumSize(new java.awt.Dimension(80*56, 725));
+            spread.setMinimumSize(new java.awt.Dimension(80*56, 725));
+            spread.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+            spread.setCellSelectionEnabled(true);
+            spread.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+            spread.setShowGrid(true);
+            spread.setRowHeight(24);
             spread.setRowSelectionAllowed(false);
             jScrollPane1.setViewportView(spread);
             
@@ -171,20 +170,20 @@ public class editorg extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(147, 147, 147)
                 .addComponent(jButton1)
-                .addContainerGap(1701, Short.MAX_VALUE))
+                .addGap(0, 1848, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(65, 65, 65)
                 .addComponent(jButton1)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addGap(0, 97, Short.MAX_VALUE))
         );
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane1.setAutoscrolls(true);
+        jScrollPane1.setFont(new java.awt.Font("Lucida Console", 0, 12)); // NOI18N
 
         jPanel4.setPreferredSize(new java.awt.Dimension(1920, 120));
 
