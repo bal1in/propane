@@ -48,8 +48,7 @@ public class editorg extends javax.swing.JFrame {
                     contents = line;
                 }
                 else{
-                    //need four backwards slashes to get around some string nonsense
-                    contents = contents+"\\\\"+line;
+                    contents = contents+"¬¬"+line;
                 }
                 
                 i++;
@@ -65,9 +64,7 @@ public class editorg extends javax.swing.JFrame {
             //this block is converting the single line thingy into a 2D array, to be added to the JTable
             
             //split the line around the "rows"
-            //the aforementioned nonsense complicates this slightly, compensate later
-            String[] split1 = contents.split("\\\\");
-            System.out.println(Arrays.toString(split1));
+            String[] split1 = contents.split("¬¬");
             //System.out.println(Arrays.toString(split1));
             //now get the first line only to find the number of columns
             String temps = split1[0];
@@ -78,7 +75,7 @@ public class editorg extends javax.swing.JFrame {
                 }
             }
             j = j / 2;
-            System.out.println(j);
+            // System.out.println(j);
             
             //this array never has anything actually inserted in it but it is needed to make the table behave
             //its length = number of columns in the table
@@ -88,24 +85,26 @@ public class editorg extends javax.swing.JFrame {
             //2D arrays confuse me
             //each item is a row, and each subitem is part of its respective column
             String[][] contents2;
-            if(j < 51){
-                contents2 = new String[i][52];
-                heads = new String[52];
+            if(j < 55){
+                j = 55;
             }
-            else{
-                contents2 = new String[i][j+1];
-                heads = new String[j+1];
+            if(i < 55){
+                i = 55;
             }
+            contents2 = new String[i][j+1];
+            heads = new String[j+1];
             String[] split2;
             int k = 0;
             
-            while(k*2 < split1.length - 2){
+            while(k < split1.length - 2){
                 //same operation as temps, but this time grabbing every row
-                //k must be doubled here because the nonsense makes every other item in split1 blank
-                split2 = split1[k*2].split("``");
+                split2 = split1[k].split("``");
                 //System.out.println(Arrays.toString(split2));
                 //inserting each item into the 2D array
-                for(int n = 0; n < split2.length; n++){
+                //this makes no sense and i hate it, but it works
+                for(int n = 0; (n < split2.length) && (n < contents2[k].length-1); n++){
+                    //System.out.println(n);
+                    //System.out.println(contents2[k].length);
                     contents2[k][n+1] = split2[n];
                 }
                 contents2[k][0] = String.valueOf(k+1);
@@ -119,16 +118,16 @@ public class editorg extends javax.swing.JFrame {
             TableModel model = new DefaultTableModel(contents2, heads);
             JTable spread = new JTable(model);
             spread.setFont(new java.awt.Font("Lucida Console", 0, 12));
-            spread.setPreferredSize(new java.awt.Dimension(80*56, 725));
-            spread.setMaximumSize(new java.awt.Dimension(80*56, 725));
-            spread.setMinimumSize(new java.awt.Dimension(80*56, 725));
+            spread.setPreferredSize(new java.awt.Dimension(80*(j+1), 24*(i+1)));
+            spread.setMaximumSize(new java.awt.Dimension(80*(j+1), 24*(i+1)));
+            spread.setMinimumSize(new java.awt.Dimension(80*(j+1), 24*(i+1)));
             spread.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
             spread.setCellSelectionEnabled(true);
             spread.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
             spread.setShowGrid(true);
             spread.setRowHeight(24);
             spread.setRowSelectionAllowed(false);
-            jScrollPane1.setViewportView(spread);
+            jScrollPane2.setViewportView(spread);
             
             
         } catch (FileNotFoundException ex) {
@@ -151,8 +150,9 @@ public class editorg extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Editor");
@@ -185,11 +185,6 @@ public class editorg extends javax.swing.JFrame {
                 .addGap(0, 97, Short.MAX_VALUE))
         );
 
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane1.setAutoscrolls(true);
-        jScrollPane1.setFont(new java.awt.Font("Lucida Console", 0, 12)); // NOI18N
-
         jPanel4.setPreferredSize(new java.awt.Dimension(1920, 120));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -203,6 +198,9 @@ public class editorg extends javax.swing.JFrame {
             .addGap(0, 120, Short.MAX_VALUE)
         );
 
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -210,26 +208,30 @@ public class editorg extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1920, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1920, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane1.setFont(new java.awt.Font("Lucida Console", 0, 12)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1932, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,5 +288,6 @@ public class editorg extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
