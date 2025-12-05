@@ -57,6 +57,7 @@ public class filethingy extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
+        System.out.println(jFileChooser1.getSelectedFile().toString());
         editorg e = new editorg(jFileChooser1.getSelectedFile().toString());
         e.setVisible(true);
         this.setVisible(false);

@@ -39,10 +39,8 @@ public class editorg extends javax.swing.JFrame {
             String contents = "";
             String line;
             int i = 0;
-            int j = 0;
-            
-            //hardcoded file.csv for now
-            FileReader fr = new FileReader("file.csv");
+
+            FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             while((line = br.readLine()) != null){
                 //collecting every line and converting into a single line in a variable
@@ -61,8 +59,7 @@ public class editorg extends javax.swing.JFrame {
             fr.close();
             
             //replacing commas in a CSV with my format
-            contents = contents.replace(",", "//");
-            System.out.println(contents);
+            contents = contents.replace(",", "``");
             
             
             //this block is converting the single line thingy into a 2D array, to be added to the JTable
@@ -70,10 +67,18 @@ public class editorg extends javax.swing.JFrame {
             //split the line around the "rows"
             //the aforementioned nonsense complicates this slightly, compensate later
             String[] split1 = contents.split("\\\\");
+            System.out.println(Arrays.toString(split1));
             //System.out.println(Arrays.toString(split1));
             //now get the first line only to find the number of columns
-            String[] temps = split1[0].split("//");
-            j = temps.length;
+            String temps = split1[0];
+            int j = 0;
+            for(int p=0; p < temps.length()-1; p++){
+                if(temps.substring(p,p+1).equals("`")){
+                    j++;
+                }
+            }
+            j = j / 2;
+            System.out.println(j);
             
             //this array never has anything actually inserted in it but it is needed to make the table behave
             //its length = number of columns in the table
@@ -83,21 +88,21 @@ public class editorg extends javax.swing.JFrame {
             //2D arrays confuse me
             //each item is a row, and each subitem is part of its respective column
             String[][] contents2;
-            //if(j < 23){
-                contents2 = new String[52][52];
+            if(j < 51){
+                contents2 = new String[i][52];
                 heads = new String[52];
-            //}
-            //else{
-            //    contents2 = new String[i][j];
-            //    heads = new String[j];
-            //}
+            }
+            else{
+                contents2 = new String[i][j+1];
+                heads = new String[j+1];
+            }
             String[] split2;
             int k = 0;
             
-            while(k < split1.length - 2){
+            while(k*2 < split1.length - 2){
                 //same operation as temps, but this time grabbing every row
                 //k must be doubled here because the nonsense makes every other item in split1 blank
-                split2 = split1[k*2].split("//");
+                split2 = split1[k*2].split("``");
                 //System.out.println(Arrays.toString(split2));
                 //inserting each item into the 2D array
                 for(int n = 0; n < split2.length; n++){
@@ -127,9 +132,9 @@ public class editorg extends javax.swing.JFrame {
             
             
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(editorg.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Specified file not found", "guh...", HEIGHT);
         } catch (IOException ex) {
-            Logger.getLogger(editorg.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Specified file not found", "guh...", HEIGHT);
         }
         
     }
