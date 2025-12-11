@@ -4,6 +4,12 @@
  */
 package propyleneglycoltype;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  *
  * @author tam19f
@@ -57,10 +63,41 @@ public class filethingy extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
-        System.out.println(jFileChooser1.getSelectedFile().toString());
-        editorg e = new editorg(jFileChooser1.getSelectedFile().toString());
-        e.setVisible(true);
-        this.setVisible(false);
+        if(jFileChooser1.getSelectedFile() == null){        
+            hoem h = new hoem();
+            h.setVisible(true);
+            this.setVisible(false);
+        }
+        else{
+            boolean done;
+            String[] queue = new String[20];
+            int count = 20;
+            FileWriter fw = null;
+            FileReader fr = null;
+            try {
+                fr = new FileReader("recent");
+                BufferedReader br = new BufferedReader(fr);
+                String line;
+                while((line = br.readLine()) != null){
+                    count--;
+                    for(int i = 0; i<19; i++){
+                        if()
+                    }
+                }
+                fw = new FileWriter("recent", true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write((jFileChooser1.getSelectedFile().toString())+"\n");
+                bw.close();
+                fw.close();
+            } 
+            catch (IOException ex) {
+                System.out.println("stinky");
+            }
+            
+            editorg e = new editorg(jFileChooser1.getSelectedFile().toString());
+            e.setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
     /**

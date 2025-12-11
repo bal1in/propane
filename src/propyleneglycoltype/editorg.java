@@ -8,9 +8,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -96,7 +94,7 @@ public class editorg extends javax.swing.JFrame {
             String[] split2;
             int k = 0;
             
-            while(k < split1.length - 2){
+            while(k < split1.length){
                 //same operation as temps, but this time grabbing every row
                 split2 = split1[k].split("``");
                 //System.out.println(Arrays.toString(split2));
@@ -106,6 +104,7 @@ public class editorg extends javax.swing.JFrame {
                     //System.out.println(n);
                     //System.out.println(contents2[k].length);
                     contents2[k][n+1] = split2[n];
+                    //System.out.println(Arrays.deepToString(contents2));
                 }
                 contents2[k][0] = String.valueOf(k+1);
                 //System.out.println(Arrays.deepToString(contents2));
