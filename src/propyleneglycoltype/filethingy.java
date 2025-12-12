@@ -71,22 +71,27 @@ public class filethingy extends javax.swing.JFrame {
         else{
             boolean done;
             String[] queue = new String[20];
-            int count = 20;
+            int count = 0;
             FileWriter fw = null;
             FileReader fr = null;
             try {
                 fr = new FileReader("recent");
                 BufferedReader br = new BufferedReader(fr);
                 String line;
-                while((line = br.readLine()) != null){
-                    count--;
-                    for(int i = 0; i<19; i++){
-                        if()
+                while((line = br.readLine()) != null && count < 19){
+                    count++;
+                    if(!(line.equals(jFileChooser1.getSelectedFile().toString()))){
+                        queue[count] = line;
                     }
                 }
-                fw = new FileWriter("recent", true);
+                fw = new FileWriter("recent");
                 BufferedWriter bw = new BufferedWriter(fw);
-                bw.write((jFileChooser1.getSelectedFile().toString())+"\n");
+                bw.write(jFileChooser1.getSelectedFile().toString()+"\n");
+                for(int i=0; i<queue.length; i++){
+                    if(!(queue[i] == null)){
+                        bw.write(queue[i]+"\n");
+                    }
+                }
                 bw.close();
                 fw.close();
             } 

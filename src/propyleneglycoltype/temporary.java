@@ -36,7 +36,9 @@ public class temporary extends javax.swing.JFrame {
             String [] split = chs.split(",");
             for(int i = split.length - 1; i >= 0; i--){
                 //this is temporary just go with it
-                jComboBox1.addItem(split[i].split("\\\\")[split[i].split("\\\\").length-1]);
+                if(!(split[i].split("\\\\")[split[i].split("\\\\").length-1]==(null))){
+                    jComboBox1.addItem(split[i].split("\\\\")[split[i].split("\\\\").length-1]);
+                }
             }
             
             //editorg e = new editorg(ch);
