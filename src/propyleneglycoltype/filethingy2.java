@@ -4,24 +4,33 @@
  */
 package propyleneglycoltype;
 
+import static java.awt.image.ImageObserver.HEIGHT;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
 
 /**
  *
  * @author tam19f
  */
-public class filethingy extends javax.swing.JFrame {
+public class filethingy2 extends javax.swing.JFrame {
 
     /**
      * Creates new form filethingy
      */
-    public filethingy() {
+    public filethingy2() {
         initComponents();
         this.toFront();
+    }
+    
+    public filethingy2(String f) {
+        initComponents();
+        this.toFront();
+        this.setTitle(f);
     }
 
     /**
@@ -35,9 +44,11 @@ public class filethingy extends javax.swing.JFrame {
 
         jFileChooser1 = new javax.swing.JFileChooser();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setType(java.awt.Window.Type.POPUP);
 
+        jFileChooser1.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+        jFileChooser1.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
         jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFileChooser1ActionPerformed(evt);
@@ -64,46 +75,31 @@ public class filethingy extends javax.swing.JFrame {
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
         if(jFileChooser1.getSelectedFile() == null){        
-            hoem h = new hoem();
-            h.setVisible(true);
             this.setVisible(false);
         }
         else{
-            boolean done;
-            String[] queue = new String[20];
-            int count = 0;
             FileWriter fw = null;
-            FileReader fr = null;
-            try {
-                fr = new FileReader("recent");
-                BufferedReader br = new BufferedReader(fr);
-                String line;
-                while((line = br.readLine()) != null && count < 19){
-                    count++;
-                    if(!(line.equals(jFileChooser1.getSelectedFile().toString()))){
-                        queue[count] = line;
+        try {
+            TableModel conts = spread.getModel();
+            fw = new FileWriter(this.getTitle());
+            BufferedWriter bw = new BufferedWriter(fw);
+            for(int i=1; i<conts.getColumnCount()-1; i++){
+                for(int j=0; j<conts.getRowCount(); j++){
+                    if(conts.getValueAt(i, j) == null){
+                        bw.write(",");
+                    }
+                    else{
+                        bw.write(conts.getValueAt(i, j).toString()+",");
                     }
                 }
-                br.close();
-                fr.close();
-                fw = new FileWriter("recent");
-                BufferedWriter bw = new BufferedWriter(fw);
-                bw.write(jFileChooser1.getSelectedFile().toString()+"\n");
-                for(int i=0; i<queue.length; i++){
-                    if(!(queue[i] == null)){
-                        bw.write(queue[i]+"\n");
-                    }
-                }
-                bw.close();
-                fw.close();
-            } 
-            catch (IOException ex) {
-                System.out.println("stinky");
-            }
-            
-            editorg e = new editorg(jFileChooser1.getSelectedFile().toString());
-            e.setVisible(true);
-            this.setVisible(false);
+                bw.write("\n");
+            }   
+            bw.close();
+            fw.close();
+            JOptionPane.showMessageDialog(rootPane, "File saved successfully", "hi", HEIGHT);
+        } catch (IOException ex) {
+            //Logger.getLogger(editorg.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
@@ -124,20 +120,21 @@ public class filethingy extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(filethingy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(filethingy2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(filethingy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(filethingy2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(filethingy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(filethingy2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(filethingy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(filethingy2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new filethingy().setVisible(true);
+                new filethingy2().setVisible(true);
             }
         });
     }

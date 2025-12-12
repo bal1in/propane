@@ -5,9 +5,13 @@
 package propyleneglycoltype;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 //import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -115,7 +119,8 @@ public class editorg extends javax.swing.JFrame {
             initComponents();
             
             TableModel model = new DefaultTableModel(contents2, heads);
-            JTable spread = new JTable(model);
+            //JTable spread = new JTable(model);
+            spread.setModel(model);
             spread.setFont(new java.awt.Font("Lucida Console", 0, 12));
             spread.setPreferredSize(new java.awt.Dimension(80*(j+1), 24*(i+1)));
             spread.setMaximumSize(new java.awt.Dimension(80*(j+1), 24*(i+1)));
@@ -127,6 +132,8 @@ public class editorg extends javax.swing.JFrame {
             spread.setRowHeight(24);
             spread.setRowSelectionAllowed(false);
             jScrollPane2.setViewportView(spread);
+            
+            label.setText(file);
             
             
         } catch (FileNotFoundException ex) {
@@ -146,17 +153,21 @@ public class editorg extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        canvas1 = new java.awt.Canvas();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        label = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
+        spread = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Editor");
-        setAlwaysOnTop(true);
         setPreferredSize(new java.awt.Dimension(1920, 1035));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1920, 1035));
@@ -177,25 +188,57 @@ public class editorg extends javax.swing.JFrame {
             }
         });
 
+        label.setText("jLabel1");
+
+        jButton3.setText("save as");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("do not click");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jButton1)
-                .addGap(0, 1848, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(label)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(347, 347, 347)
                 .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 959, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addGap(372, 372, 372))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(34, 34, 34))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(label))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton2)
+                            .addComponent(jButton3))
+                        .addGap(34, 34, 34))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jButton4)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         jPanel4.setPreferredSize(new java.awt.Dimension(1920, 120));
@@ -213,6 +256,19 @@ public class editorg extends javax.swing.JFrame {
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        spread.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(spread);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -261,8 +317,74 @@ public class editorg extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String[][] conts = spread.
+        FileWriter fw = null;
+        try {
+            TableModel conts = spread.getModel();
+            fw = new FileWriter(label.getText());
+            BufferedWriter bw = new BufferedWriter(fw);
+            for(int i=0; i<conts.getRowCount(); i++){
+                for(int j=1; j<conts.getColumnCount()-1; j++){
+                    if(conts.getValueAt(i, j) == null){
+                        bw.write(",");
+                    }
+                    else{
+                        bw.write(conts.getValueAt(i, j).toString()+",");
+                    }
+                }
+                bw.write("\n");
+            }   
+            bw.close();
+            fw.close();
+            JOptionPane.showMessageDialog(rootPane, "File saved successfully", "hi", HEIGHT);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Error while saving file", "hi", HEIGHT);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String cur = label.getText();
+        String[] split = cur.split("\\\\");
+        String path = "";
+        path = cur.replace(split[split.length-1], "");
+        
+        String f = JOptionPane.showInputDialog("Please enter full path of the destination folder\n(blank to save within program)", path);
+        String g = JOptionPane.showInputDialog("Please enter name and file extension of file", split[split.length-1]);
+        
+        if(f == null){
+            f = "";
+        }
+        
+        FileWriter fw = null;
+        try {
+            TableModel conts = spread.getModel();
+            fw = new FileWriter(f+g);
+            BufferedWriter bw = new BufferedWriter(fw);
+            for(int i=0; i<conts.getRowCount(); i++){
+                for(int j=1; j<conts.getColumnCount()-1; j++){
+                    if(conts.getValueAt(i, j) == null){
+                        bw.write(",");
+                    }
+                    else{
+                        bw.write(conts.getValueAt(i, j).toString()+",");
+                    }
+                }
+                bw.write("\n");
+            }   
+            bw.close();
+            fw.close();
+            label.setText(f+g);
+            
+            
+            
+            JOptionPane.showMessageDialog(rootPane, "File saved successfully", "hi", HEIGHT);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Error while saving file", "hi", HEIGHT);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        //jPopupMenu1.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -300,12 +422,17 @@ public class editorg extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.Canvas canvas1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel label;
+    private javax.swing.JTable spread;
     // End of variables declaration//GEN-END:variables
 }

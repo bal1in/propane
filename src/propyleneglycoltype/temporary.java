@@ -34,7 +34,7 @@ public class temporary extends javax.swing.JFrame {
             br.close();
             fr.close();
             String [] split = chs.split(",");
-            for(int i = split.length - 1; i >= 0; i--){
+            for(int i = 0; i < split.length; i++){
                 //this is temporary just go with it
                 if(!(split[i].split("\\\\")[split[i].split("\\\\").length-1]==(null))){
                     jComboBox1.addItem(split[i].split("\\\\")[split[i].split("\\\\").length-1]);

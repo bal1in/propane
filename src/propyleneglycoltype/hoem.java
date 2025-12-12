@@ -54,7 +54,6 @@ public class hoem extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("spreadsheet thingy");
-        setAlwaysOnTop(true);
         setPreferredSize(new java.awt.Dimension(1920, 1035));
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
@@ -246,7 +245,7 @@ public class hoem extends javax.swing.JFrame {
             fw.write("");
             fw.close();
             //pass file to editor window here
-            editorg e = new editorg();
+            editorg e = new editorg("Untitled.csv");
             e.setVisible(true);
             this.setVisible(false);
         } catch (IOException ex) {
@@ -260,7 +259,7 @@ public class hoem extends javax.swing.JFrame {
             fw.write("");
             fw.close();
             //pass file to editor window here
-            editorg e = new editorg();
+            editorg e = new editorg("Untitled.txt");
             e.setVisible(true);
             this.setVisible(false);
         } catch (IOException ex) {
