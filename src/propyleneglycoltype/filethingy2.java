@@ -74,33 +74,33 @@ public class filethingy2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
-        if(jFileChooser1.getSelectedFile() == null){        
-            this.setVisible(false);
-        }
-        else{
-            FileWriter fw = null;
-        try {
-            TableModel conts = spread.getModel();
-            fw = new FileWriter(this.getTitle());
-            BufferedWriter bw = new BufferedWriter(fw);
-            for(int i=1; i<conts.getColumnCount()-1; i++){
-                for(int j=0; j<conts.getRowCount(); j++){
-                    if(conts.getValueAt(i, j) == null){
-                        bw.write(",");
-                    }
-                    else{
-                        bw.write(conts.getValueAt(i, j).toString()+",");
-                    }
-                }
-                bw.write("\n");
-            }   
-            bw.close();
-            fw.close();
+        //if(jFileChooser1.getSelectedFile() == null){        
+        //    this.setVisible(false);
+        //}
+        //else{
+        //    FileWriter fw = null;
+        //try {
+            //TableModel conts = spread.getModel();
+            //fw = new FileWriter(this.getTitle());
+            //BufferedWriter bw = new BufferedWriter(fw);
+            //for(int i=1; i<conts.getColumnCount()-1; i++){
+            //    for(int j=0; j<conts.getRowCount(); j++){
+            //        if(conts.getValueAt(i, j) == null){
+            //            bw.write(",");
+            //        }
+            //        else{
+            //            bw.write(conts.getValueAt(i, j).toString()+",");
+            //        }
+            //    }
+            //    bw.write("\n");
+            //}   
+            //bw.close();
+            //fw.close();
             JOptionPane.showMessageDialog(rootPane, "File saved successfully", "hi", HEIGHT);
-        } catch (IOException ex) {
-            //Logger.getLogger(editorg.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        }
+        //} catch (IOException ex) {
+        //    //Logger.getLogger(editorg.class.getName()).log(Level.SEVERE, null, ex);
+        //}
+        //}
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 
     /**
