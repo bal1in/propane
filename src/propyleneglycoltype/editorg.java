@@ -117,7 +117,6 @@ public class editorg extends javax.swing.JFrame {
             
             
             initComponents();
-            
             TableModel model = new DefaultTableModel(contents2, heads);
             //JTable spread = new JTable(model);
             spread.setModel(model);
@@ -353,6 +352,9 @@ public class editorg extends javax.swing.JFrame {
         if(f == null){
             f = "";
         }
+        if(g == null){
+            g = "Untitled";
+        }
         
         FileWriter fw = null;
         try {
@@ -378,6 +380,7 @@ public class editorg extends javax.swing.JFrame {
             
             JOptionPane.showMessageDialog(rootPane, "File saved successfully", "hi", HEIGHT);
         } catch (IOException ex) {
+            //Logger.getLogger(editorg.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(rootPane, "Error while saving file", "hi", HEIGHT);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
