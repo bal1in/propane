@@ -1,17 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package finalthing;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author tam19f
- */
 public class hoem extends javax.swing.JFrame {
 
     /**
@@ -233,15 +225,22 @@ public class hoem extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //really all this window does is open other windows
+    //not a lot of comments, it's all very self explanatory
     private void bSpreadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSpreadActionPerformed
         try {
+            //make a new file by "writing" to a file ehich does not exist
             FileWriter fw = new FileWriter("Untitled.gss");
             fw.write("");
             fw.close();
+            
+            //pass file to editor window here
             editorg e = new editorg("Untitled.gss");
             e.setVisible(true);
             this.setVisible(false);
-        } catch (IOException ex) {
+        } 
+        catch (IOException ex) {
+            //this should be impossible but netbeans shouts at me if i dont have it
             JOptionPane.showMessageDialog(rootPane, "Failed to create file", "Error", HEIGHT);
         }
     }//GEN-LAST:event_bSpreadActionPerformed
@@ -255,7 +254,8 @@ public class hoem extends javax.swing.JFrame {
             editorg e = new editorg("Untitled.csv");
             e.setVisible(true);
             this.setVisible(false);
-        } catch (IOException ex) {
+        } 
+        catch (IOException ex) {
             JOptionPane.showMessageDialog(rootPane, "Failed to create file", "Error", HEIGHT);
         }
     }//GEN-LAST:event_bCommaActionPerformed
@@ -266,18 +266,22 @@ public class hoem extends javax.swing.JFrame {
             fw.write("");
             fw.close();
             //pass file to editor window here
+            //create a new instance of the window to be opened
             editorg e = new editorg("Untitled.txt");
+            //show it
             e.setVisible(true);
+            //hide this window
             this.setVisible(false);
-        } catch (IOException ex) {
+        } 
+        catch (IOException ex) {
             JOptionPane.showMessageDialog(rootPane, "Failed to create file", "Error", HEIGHT);
         }
     }//GEN-LAST:event_bTextActionPerformed
 
     private void bOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOpenActionPerformed
-        this.setAlwaysOnTop(false);
-        filethingy ch = new filethingy();
-        ch.setVisible(true);
+        this.setAlwaysOnTop(false);        
+        filethingy ch = new filethingy();        
+        ch.setVisible(true);        
         this.setVisible(false);
     }//GEN-LAST:event_bOpenActionPerformed
 

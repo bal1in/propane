@@ -1,21 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package finalthing;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
+//import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author tam19f
- */
 public class filethingy extends javax.swing.JFrame {
 
     /**
@@ -63,6 +55,7 @@ public class filethingy extends javax.swing.JFrame {
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
         
+        //if there is no file selected, just return to the home window
         if(jFileChooser1.getSelectedFile() == null){        
             hoem h = new hoem();
             h.setVisible(true);
@@ -70,20 +63,25 @@ public class filethingy extends javax.swing.JFrame {
         }
         else{
             String file = jFileChooser1.getSelectedFile().toString();
+            //split the full filepath around periods to get the file extension
+            //the two backwards slashes are to get around regex shenanigans
             String[] splitfile = file.split("\\.");
             //System.out.println(Arrays.toString(splitfile));
             int conf = 0;
+            //if the file extension (the last item when split around periods) is NOT one recognised
             if(!(splitfile[splitfile.length-1].equals("txt")
                     || splitfile[splitfile.length-1].equals("csv")
                     || splitfile[splitfile.length-1].equals("gss"))){
                 conf = JOptionPane.showConfirmDialog(rootPane, "Unsupported file type\nOpen anyway?");
                 //System.out.println(Integer.toString(conf));
             }
+            //2 = Cancel
             if(conf == 2){
                 hoem h = new hoem();
                 h.setVisible(true);
                 this.setVisible(false);
             }
+            //0 = Yes
             if(conf == 0){
                 boolean done;
                 String[] queue = new String[20];
@@ -121,6 +119,7 @@ public class filethingy extends javax.swing.JFrame {
                 e.setVisible(true);
                 this.setVisible(false);
             }
+            //just do nothing if the user says No (1) or closes the popup
         }
     }//GEN-LAST:event_jFileChooser1ActionPerformed
 

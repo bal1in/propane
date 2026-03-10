@@ -5,13 +5,9 @@ import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Arrays;
+//import java.util.Arrays;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author mrT18
- */
 public class graph extends Frame {
     //global variable so the input from the constructor can be passed to the paint method
     public String[][] Pinputs;

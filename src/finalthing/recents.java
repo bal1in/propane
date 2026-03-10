@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package finalthing;
 
 import java.io.BufferedReader;
@@ -9,33 +5,35 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-/**
- *
- * @author tam19f
- */
 public class recents extends javax.swing.JFrame {
 
-    /**
-     * Creates new form temporary
-     */
     public recents() {
+        //assemble the window first
         initComponents();
-        FileReader fr;
+
         try {
-            fr = new FileReader("recent");
+            FileReader fr = new FileReader("recent");
             BufferedReader br = new BufferedReader(fr);
             String ch;
             String chs = "";
             int count = 0;
+            
+            //loop through the recent file, adding each line to a variable and counting the number of lines
             while((ch = br.readLine()) != null){
                 chs = chs + ch + ",";
                 count++;
             }
             br.close();
             fr.close();
+            
+            //split the variable with all the lines into a 2D array
             String [] split = chs.split(",");
             for(int i = 0; i < split.length; i++){
-                //this is temporary just go with it
+                //this is extremely ugly, i just didn't feel like making a separate array for the split item
+                //what this block is doing is removing the full filepath from the combobox entries,
+                //as that would be both confusing for the user and ugly,
+                //and just leaving the filename
+                //also checking if there is no file path, which would happen if the user saved a file inside the program
                 if(!(split[i].split("\\\\")[split[i].split("\\\\").length-1]==(null))){
                     jComboBox1.addItem(split[i].split("\\\\")[split[i].split("\\\\").length-1]);
                 }
@@ -44,9 +42,12 @@ public class recents extends javax.swing.JFrame {
             //editorg e = new editorg(ch);
             //e.setVisible(true);
             //this.setVisible(false);
-        } catch (FileNotFoundException ex) {
+        } 
+        catch (FileNotFoundException ex) {
+            //if the recent file doesn't exist just do nothing and leave the combobox empty
             //Logger.getLogger(hoem.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } 
+        catch (IOException ex) {
             //Logger.getLogger(hoem.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -114,8 +115,8 @@ public class recents extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         hoem h = new hoem();
-            h.setVisible(true);
-            this.setVisible(false);
+        h.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
