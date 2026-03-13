@@ -83,7 +83,8 @@ public class filethingy extends javax.swing.JFrame {
             }
             //0 = Yes
             if(conf == 0){
-                boolean done;
+                //boolean done;
+                //array where each entry in the recent file is placed, to be rearranged upon opening a new one
                 String[] queue = new String[20];
                 int count = 0;
                 FileWriter fw = null;
@@ -93,7 +94,9 @@ public class filethingy extends javax.swing.JFrame {
                     BufferedReader br = new BufferedReader(fr);
                     String line;
                     while((line = br.readLine()) != null && count < 19){
+                        //counts the index of queue which each entry should be placed at
                         count++;
+                        //add any item from recent into queue as long as it isn't the one being opened
                         if(!(line.equals(jFileChooser1.getSelectedFile().toString()))){
                             queue[count] = line;
                         }
@@ -102,7 +105,9 @@ public class filethingy extends javax.swing.JFrame {
                     fr.close();
                     fw = new FileWriter("recent");
                     BufferedWriter bw = new BufferedWriter(fw);
+                    //write the file being opened first, so it's at the start of the list
                     bw.write(jFileChooser1.getSelectedFile().toString()+"\n");
+                    //then everything else
                     for(int i=0; i<queue.length; i++){
                         if(!(queue[i] == null)){
                             bw.write(queue[i]+"\n");
@@ -112,7 +117,7 @@ public class filethingy extends javax.swing.JFrame {
                     fw.close();
                 } 
                 catch (IOException ex) {
-                    System.out.println("stinky");
+                    System.out.println("could not update recent file");
                 }
 
                 editorg e = new editorg(jFileChooser1.getSelectedFile().toString());
